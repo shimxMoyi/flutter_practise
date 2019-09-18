@@ -4,6 +4,24 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+        {
+            "name": "Dart",
+            "type": "dart",
+            "request": "launch",
+            "program": "flutter_practise/bin/main.dart"
+        },
+        {
+            "name": "Dart: Attach to Process",
+            "type": "dart",
+            "request": "attach"
+        },
+        {
+            "name": "Flutter",
+            "type": "dart",
+            "request": "launch",
+            "program": "flutter_practise/lib/main.dart"
+        },
         {
             "type": "extensionHost",
             "request": "launch",
@@ -24,11 +42,5 @@
         "request": "launch",
         "platform": "ios"
     },
-        {
-            "name": "Dart",
-            "program": "bin/main.dart",
-            "request": "launch",
-            "type": "dart"
-        }
     ]
 }

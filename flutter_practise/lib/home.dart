@@ -48,11 +48,17 @@ class _MyHomePageSate extends State<AppPage> {
     print(_list);
   }
 
+  renderAppBar (BuildContext context, int index, String titleString) {
+    if (index != 0) {
+      return AppBar(title: Text(titleString)); 
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text(appBarTitle),),
+      appBar: renderAppBar(context, _currentIndex, appBarTitle),
       bottomNavigationBar: CupertinoTabBar(
         items: _myTabs,
         currentIndex: _currentIndex,
@@ -60,6 +66,7 @@ class _MyHomePageSate extends State<AppPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
+        // children里的widget必须全部实现，不能有返回null的情况。
         children: _list,
       ),
     );
