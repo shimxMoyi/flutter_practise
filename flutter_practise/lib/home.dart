@@ -59,10 +59,20 @@ class _MyHomePageSate extends State<AppPage> {
 
     return Scaffold(
       appBar: renderAppBar(context, _currentIndex, appBarTitle),
-      bottomNavigationBar: CupertinoTabBar(
-        items: _myTabs,
-        currentIndex: _currentIndex,
-        onTap: _itemTapped,
+      bottomNavigationBar: BottomAppBar(
+        // items: _myTabs,
+        // currentIndex: _currentIndex,
+        // onTap: _itemTapped,
+        color: Colors.white,
+        shape: CircularNotchedRectangle(), // 底部导航栏打一个圆形的洞
+        child: Row(
+          children: [
+            IconButton(icon: Icon(Icons.home)),
+            SizedBox(), //中间位置空出
+            IconButton(icon: Icon(Icons.business)),
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceAround, //均分底部导航栏横向空间
+      ),
       ),
       body: IndexedStack(
         index: _currentIndex,

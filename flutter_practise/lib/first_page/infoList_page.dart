@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-// import 'package:english_words/english_words.dart';
+import 'package:english_words/english_words.dart';
+import 'infoList_cell.dart';
+import 'infoList_item.dart';
+import 'package:flutter_practise/utils/net_utils.dart';
+import 'package:flutter_practise/utils/list_refresh.dart' as listComp;
 
 class InfoListPage extends StatefulWidget {
   @override
@@ -11,56 +15,77 @@ class InfoListPage extends StatefulWidget {
   
 }
 
-class _InfoListPage extends State<InfoListPage> {
+class _InfoListPage extends State<InfoListPage> with AutomaticKeepAliveClientMixin {
   static const loadingTag = "##loading##"; 
   var _words = <String>[loadingTag];
 
   @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: _words.length,
-      itemBuilder: (context, index) {
-        //如果到了表尾
-        if (_words[index] == loadingTag) {
-          //不足100条，继续获取数据
-          if (_words.length - 1 < 100) {
-            //获取数据
-            _retrieveData();
-            //加载时显示loading
-            return Container(
-              padding: const EdgeInsets.all(16.0),
-              alignment: Alignment.center,
-              child: SizedBox(
-                  width: 24.0,
-                  height: 24.0,
-                  child: CircularProgressIndicator(strokeWidth: 2.0)
-              ),
-            );
-          } else {
-            //已经加载了100条数据，不再获取数据。
-            return Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(16.0),
-                child: Text("没有更多了", style: TextStyle(color: Colors.grey),)
-            );
-          }
-        }
-        //显示单词列表项
-        return ListTile(title: Text(_words[index]));
-      },
-      separatorBuilder: (context, index) => Divider(height: .0),
-    );
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    // _retrieveData();
   }
 
-  void _retrieveData() {
-    // Future.delayed(Duration(seconds: 2)).then((e) {
-    //   _words.insertAll(_words.length - 1,
-    //       //每次生成20个单词
-    //       generateWordPairs().take(20).map((e) => e.asPascalCase).toList()
-    //   );
-    //   setState(() {
-    //     //重新构建列表
-    //   });
-    // });
+  @override
+  Widget build(BuildContext context) {
+
+    // return ListView.custom(
+    //   padding: EdgeInsets.only(bottom: 60),
+    //   scrollDirection: Axis.vertical,
+    //   childrenDelegate:SliverChildBuilderDelegate((BuildContext context, int index) {
+    //       return InfoListCell(
+    //         itemTitle: '$index + 这是发的', 
+    //         itemFromName: '名字 + $index', 
+    //         index: index,
+    //       );
+    //     }, 
+    //   childCount: 100,
+    //   ),
+    // );
+    return listComp.ListRefresh(getIndexListData,cellItem,null);
+  }
+
+// cell widget
+  Widget cellItem (index, item)  {
+    var myTitle = '${item.title}';
+    var myUsername = '${'👲'}: ${item.username} ';
+    var codeUrl = '${item.detailUrl}';
+    return InfoListCell(itemTitle: myTitle, itemFromName: myUsername, itemUrl: codeUrl,);
+  }
+
+  // 获取网络数据
+  Future<Map> getIndexListData([Map<String, dynamic> params]) async {
+    /// const juejin_flutter = 'https://timeline-merger-ms.juejin.im/v1/get_tag_entry?src=web&tagId=5a96291f6fb9a0535b535438';
+    const juejin_flutter = 'https://fluttergo.pub:9527/juejin.im/v1/get_tag_entry?src=web&tagId=5a96291f6fb9a0535b535438';
+
+    var pageIndex = (params is Map) ? params['pageIndex'] : 0;
+    final _param  = {'page':pageIndex,'pageSize':20,'sort':'rankIndex'};
+    var responseList = [];
+    var  pageTotal = 0;
+
+    try{
+      var response = await NetUtils.get(juejin_flutter, _param);
+      responseList = response['d']['entrylist'];
+      pageTotal = response['d']['total'];
+      if (!(pageTotal is int) || pageTotal <= 0) {
+        pageTotal = 0;
+      }
+    }catch(e){
+
+    }
+    pageIndex += 1;
+    List resultList = new List();
+    for (int i = 0; i < responseList.length; i++) {
+      try {
+        InfoListItem cellData = new InfoListItem.fromJson(responseList[i]);
+        resultList.add(cellData);
+      } catch (e) {
+        // No specified type, handles all
+      }
+    }
+    Map<String, dynamic> result = {"list":resultList, 'total':pageTotal, 'pageIndex':pageIndex};
+    return result; 
   }
 }

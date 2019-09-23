@@ -37,11 +37,26 @@ AppBar _myAppBar = AppBar(
   // title: TabLayout(),
   actions: <Widget>[
     IconButton(
-      icon: Icon(Icons.search),
-      onPressed: (){
-        pushPage();
-      },
+          iconSize: 40.0,
+          icon: Icon(Icons.search),
+          onPressed: (){
+            pushPage();
+          },
     ),
+    // UnconstrainedBox(
+    //   child: SizedBox(
+    //     // width: 100,
+    //     // height: 40,
+    //     child: IconButton(
+    //       iconSize: 40.0,
+    //       icon: Icon(Icons.search),
+    //       onPressed: (){
+    //         pushPage();
+    //       },
+    //     )
+    //   ),
+      
+    // ),
   ],
 );
 
