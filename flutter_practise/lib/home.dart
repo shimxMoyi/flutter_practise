@@ -18,7 +18,7 @@ class _MyHomePageSate extends State<AppPage> {
   List<Widget> _list = List();
   List tabData = [
     {'text': '业界动态', 'icon': Icon(Icons.language)},
-    {'text': 'WIDGET', 'icon': Icon(Icons.extension)},
+    {'text': '分歧终端', 'icon': Icon(Icons.device_hub)},
     {'text': '关于', 'icon': Icon(Icons.import_contacts)},
     {'text': '个人', 'icon': Icon(Icons.account_circle)}
   ];
@@ -32,9 +32,7 @@ class _MyHomePageSate extends State<AppPage> {
     // 创建tabbarItem
     for (var i = 0; i < tabData.length; i++) {
       BottomNavigationBarItem _barItem = new BottomNavigationBarItem(
-        icon: tabData[i]['icon'],
-        title: Text(tabData[i]['text'])
-      );
+          icon: tabData[i]['icon'], title: Text(tabData[i]['text']));
       _myTabs.add(_barItem);
     }
 
@@ -44,19 +42,18 @@ class _MyHomePageSate extends State<AppPage> {
       ..add(WidgetPage())
       ..add(AboutPage())
       ..add(UserPage());
-    
+
     print(_list);
   }
 
-  renderAppBar (BuildContext context, int index, String titleString) {
-    if (index != 0) {
-      return AppBar(title: Text(titleString)); 
+  renderAppBar(BuildContext context, int index, String titleString) {
+    if (index != 0 && index != 1) {
+      return AppBar(title: Text(titleString));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: renderAppBar(context, _currentIndex, appBarTitle),
       bottomNavigationBar: CupertinoTabBar(

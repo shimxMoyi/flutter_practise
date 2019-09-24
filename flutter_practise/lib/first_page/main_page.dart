@@ -27,7 +27,7 @@ AppBar _myAppBar = AppBar(
         width: 40,
         height: 40,
       ),
-    ), 
+    ),
     onPressed: () {
       pushPersonalPage();
     },
@@ -37,11 +37,11 @@ AppBar _myAppBar = AppBar(
   // title: TabLayout(),
   actions: <Widget>[
     IconButton(
-          iconSize: 40.0,
-          icon: Icon(Icons.search),
-          onPressed: (){
-            pushPage();
-          },
+      iconSize: 40.0,
+      icon: Icon(Icons.search),
+      onPressed: () {
+        pushPage();
+      },
     ),
     // UnconstrainedBox(
     //   child: SizedBox(
@@ -55,15 +55,15 @@ AppBar _myAppBar = AppBar(
     //       },
     //     )
     //   ),
-      
+
     // ),
   ],
 );
 
-TabBar _tabBar = TabBar (
+TabBar _tabBar = TabBar(
   isScrollable: false,
-      // 这个不是很懂，大概就是把_allPage里的文案转化为文案
-  tabs: _allPage.map((_Page page)=>Tab(text: page.labelId)).toList(), 
+  // 这个不是很懂，大概就是把_allPage里的文案转化为文案
+  tabs: _allPage.map((_Page page) => Tab(text: page.labelId)).toList(),
   indicatorSize: TabBarIndicatorSize.label, // 设置选择指示器的尺寸，有tab和label两种默认尺寸
   labelPadding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0),
   indicatorColor: Colors.blue,
@@ -72,16 +72,16 @@ TabBar _tabBar = TabBar (
 );
 
 TabBarView _tabbarView = TabBarView(
-  children: _allPage.map((_Page page) { //创建3个Tab页
-      if (page.labelIndex == 1) {
-        return InfoListPage();
-      } else {
-        return Container(
-          alignment: Alignment.center,
-          child: Text(page.labelId, textScaleFactor: 5),
+  children: _allPage.map((_Page page) {
+    //创建3个Tab页
+    if (page.labelIndex == 1) {
+      return InfoListPage();
+    } else {
+      return Container(
+        alignment: Alignment.center,
+        child: Text(page.labelId, textScaleFactor: 5),
       );
-      }
-      
+    }
   }).toList(),
 );
 
@@ -96,9 +96,8 @@ DefaultTabController _tabController = DefaultTabController(
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    return _tabController; 
-  } 
+    return _tabController;
+  }
 }
 
 /*
@@ -130,10 +129,10 @@ class TabLayout extends StatelessWidget {
   }
 }
 */
-void pushPage () {
+void pushPage() {
   print('搜索页面');
 }
 
-void pushPersonalPage () {
+void pushPersonalPage() {
   print('个人页面');
 }

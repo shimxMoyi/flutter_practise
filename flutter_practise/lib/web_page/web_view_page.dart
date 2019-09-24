@@ -1,8 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-
 
 class WebViewPage extends StatefulWidget {
   final String url;
@@ -12,10 +10,9 @@ class WebViewPage extends StatefulWidget {
   _WebViewPageState createState() => _WebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage>  {
+class _WebViewPageState extends State<WebViewPage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -34,5 +31,4 @@ class _WebViewPageState extends State<WebViewPage>  {
       ),
     );
   }
-  
 }

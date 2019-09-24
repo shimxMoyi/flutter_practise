@@ -12,12 +12,10 @@ class UserPage extends StatefulWidget {
 class _UserPage extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         color: Colors.grey,
       ),
     );
   }
-
 }
