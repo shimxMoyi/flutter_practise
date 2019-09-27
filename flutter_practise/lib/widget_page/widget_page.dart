@@ -67,6 +67,7 @@ class _WidgetPage extends State<WidgetPage> {
             ), // 评分
             tagsContainer(), // 标签
             synopsisContainer(), // 剧情简介
+            billingContainer(), // 演职员
           ],
         ),
       ),
@@ -115,7 +116,6 @@ class _WidgetPage extends State<WidgetPage> {
   // 剧情简介
   Container synopsisContainer() {
     return Container(
-      height: 300,
       padding: EdgeInsets.only(left: 10.0, right: 10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -128,13 +128,53 @@ class _WidgetPage extends State<WidgetPage> {
               style: TextStyle(color: Colors.white, fontSize: 17.0),
             ),
           ),
-          Expanded(
-            child: Text(
+          Text(
             '1949年，党中央领导人进驻北京香山，在国共和谈破裂的千钧一发之际，全力筹划建立新中国。1949年，党中央领导人进驻北京香山，在国共和谈破裂的千钧一发之际，全力筹划建立新中国。1949年，党中央领导人进驻北京香山，在国共和谈破裂的千钧一发之际，全力筹划建立新中国。1949年，党中央领导人进驻北京香山，在国共和谈破裂的千钧一发之际，全力筹划建立新中国。',
             style: TextStyle(color: Colors.white70, fontSize: 14.0),
           ),
+        ],
+      ),
+    );
+  }
+
+  // 演职员
+  Container billingContainer() {
+    return Container(
+      padding: EdgeInsets.only(top: 28, bottom: 28, left: 10.0, right: 10.0),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  '演职员',
+                  style: TextStyle(color: Colors.white, fontSize: 17.0),
+                ),
+              ),
+              GestureDetector(
+                child: Row(
+                  children: <Widget>[
+                    Text('全部4'),
+                    Icon(
+                      Icons.chevron_right,
+                      color: Color(0x66ffffff),
+                      size: 20.0,
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  print('点击了演职员全部');
+                },
+              ),
+            ],
           ),
-          
+          ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: channelList.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              
+            },
+          ),
         ],
       ),
     );
